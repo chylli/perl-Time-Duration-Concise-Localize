@@ -7,6 +7,8 @@ This module uses Time::Duration::Concise as base modlue to convert concise strin
 
 [![Build Status](https://travis-ci.org/binary-com/perl-Time-Duration-Concise-Localize.svg?branch=master)](https://travis-ci.org/binary-com/perl-Time-Duration-Concise-Localize)
 
+[![Coverage Status](https://coveralls.io/repos/binary-com/perl-Time-Duration-Concise-Localize/badge.png?branch=master)](https://coveralls.io/r/binary-com/perl-Time-Duration-Concise-Localize?branch=master)
+
 NOTE
 
 Our concise time interval can also have decimal values
