@@ -8,7 +8,7 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise;
 
-plan tests => 22;
+plan tests => 23;
 
 my $duration = Time::Duration::Concise->new(
     interval => '1d1.5h'
@@ -24,6 +24,7 @@ is ( sprintf("%.2f",$duration->months), 0.03, 'Months');
 is ( $duration->as_concise_string, '1d1h30m', 'Concise string');
 is ( $duration->normalized_code, '1530m', 'Normalized Code');
 is ( ref $duration->duration, 'HASH', 'Duration');
+is ( ref $duration->duration_array, 'ARRAY', 'Duration Array');
 is ( $duration->as_string, '1 day 1 hour 30 minutes', 'As string');
 is ( $duration->as_string(1), '1 day', 'As string precision 1');
 is ( $duration->as_string(2), '1 day 1 hour', 'As string precision 2');
