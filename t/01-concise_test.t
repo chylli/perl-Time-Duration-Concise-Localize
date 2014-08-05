@@ -8,7 +8,7 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise;
 
-plan tests => 23;
+plan tests => 26;
 
 my $duration = Time::Duration::Concise->new(
     interval => '1d1.5h'
@@ -21,7 +21,9 @@ is ( sprintf("%.1f",$duration->hours), 25.5, 'Hours');
 is ( $duration->minutes, 1530, 'Minutes');
 is ( sprintf("%.2f",$duration->weeks), 0.15, 'Week');
 is ( sprintf("%.2f",$duration->months), 0.03, 'Months');
+is ( sprintf("%.2f",$duration->minimum_number_of('mo')), '1.00', 'Minimum number of unit mo');
 is ( $duration->as_concise_string, '1d1h30m', 'Concise string');
+is ( $duration->as_concise_string(1), '1d', 'Concise string');
 is ( $duration->normalized_code, '1530m', 'Normalized Code');
 is ( ref $duration->duration, 'HASH', 'Duration');
 is ( ref $duration->duration_array, 'ARRAY', 'Duration Array');
@@ -43,8 +45,17 @@ subtest "concise format input require" => sub {
 };
 
 subtest "general concise format check" => sub {
-    plan tests => 2;
+    plan tests => 3;
     my $duration;
     lives_ok { $duration = Time::Duration::Concise->new( interval => '1y1d1.5h' ) } "object initilized";
     throws_ok { $duration->seconds() } qr/Bad format supplied/, "concise format supplied wrong";
+    throws_ok { $duration->minimum_number_of('p') } qr/Cannot determine period for p/, "wrong period";
+};
+
+subtest "existing object" => sub {
+    plan tests => 3;
+    my $duration = Time::Duration::Concise->new( interval => '1y1d1.5h' );
+    lives_ok { Time::Duration::Concise->new( interval => $duration ) } "object with existing object";
+    lives_ok { Time::Duration::Concise->new({ interval => '1d2h' }) } "object with hash argument";
+    throws_ok { Time::Duration::Concise->new({ interval => '' }) } qr/Invalid time interval/, "invalid time interval";
 };
