@@ -315,7 +315,7 @@ sub minimum_number_of {
     my $orig_unit = $unit;
     $unit =~ s/s$// if ( length($unit) > 1 ); # Chop plurals, but not 's' itself
     $unit = substr( $unit, 0, 1 );
-    $unit = 'mo' if $orig_unit =~ /months/ig;
+    $unit = 'mo' if $orig_unit =~ /^months|^mo/ig;
 
     my %unit_maps = (
         'mo' => 'months',

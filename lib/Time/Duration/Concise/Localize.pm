@@ -8,7 +8,7 @@ use Carp;
 use base qw(Time::Duration::Concise);
 use Module::Runtime qw(require_module);
 
-our $VERSION = '1.4';
+our $VERSION = '1.5';
 
 =head1 NAME
 
@@ -20,7 +20,7 @@ Time::Duration::Concise is an approach to localize concise time duration string 
 
 =head1 VERSION
 
-Version 1.4
+Version 1.5
 
 =head1 SYNOPSIS
 
@@ -103,7 +103,7 @@ sub as_string {
             $translated_interval =
               &$localize_method( $duration->{'value'}, $duration->{'unit'} );
         };
-        confess 'Failed to call localize method: ' . $_ if $@;
+        confess 'Failed to call localize method: ' if $@;
         push( @duration_translated, $translated_interval );
     }
     return join( ' ', @duration_translated );
