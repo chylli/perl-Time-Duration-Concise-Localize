@@ -8,7 +8,7 @@ use Carp;
 use base qw(Time::Duration::Concise);
 use Module::Runtime qw(require_module);
 
-our $VERSION = '1.5';
+our $VERSION = '1.6';
 
 =head1 NAME
 
@@ -20,7 +20,7 @@ Time::Duration::Concise is an approach to localize concise time duration string 
 
 =head1 VERSION
 
-Version 1.5
+Version 1.6
 
 =head1 SYNOPSIS
 
