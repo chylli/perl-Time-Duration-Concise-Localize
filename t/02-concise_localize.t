@@ -8,7 +8,7 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
 
-use lib 't';
+use lib './t/';
 
 plan tests => 18;
 
