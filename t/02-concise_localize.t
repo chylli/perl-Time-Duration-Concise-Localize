@@ -3,12 +3,12 @@ use 5.006;
 use strict;
 use warnings FATAL => 'all';
 
+use lib 't';
+
 use Test::More;
 use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
-
-use lib './t/';
 
 plan tests => 18;
 
