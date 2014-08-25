@@ -20,6 +20,7 @@ WriteMakefile(
         'Test::FailWarnings' => 0,
         'Test::Exception'    => 0,
         'Time::Seconds'      => 1.27,
+        'Module::Runtime'    => 0,
     },
     PREREQ_PM => {
         'Tie::Hash::LRU'     => 0,

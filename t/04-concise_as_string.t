@@ -1,12 +1,12 @@
 use strict;
 use warnings;
 
+use lib 't';
+
 use Test::More tests => 17;
 use Test::NoWarnings;
 
 use Time::Duration::Concise::Localize;
-
-use lib './t/';
 
 my %display_tests = (
     '1d' => {
