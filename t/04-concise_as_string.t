@@ -6,6 +6,10 @@ use lib 't';
 use Test::More tests => 17;
 use Test::NoWarnings;
 
+my $min_tpc = 1.27;
+eval "use Time::Seconds $min_tpc";
+plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+
 use Time::Duration::Concise::Localize;
 
 my %display_tests = (

@@ -41,3 +41,5 @@ Revision history for Time-Duration-Concise-Localize
 1.5     20/08/2014
         Make file and CPAN failed test fixes
 
+1.6     09/09/2014
+        Ignore test if required Time::Seconds is not available
