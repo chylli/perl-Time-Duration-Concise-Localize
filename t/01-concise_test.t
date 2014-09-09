@@ -10,6 +10,10 @@ use Time::Duration::Concise;
 
 plan tests => 26;
 
+my $min_tpc = 1.27;
+eval "use Time::Seconds $min_tpc";
+plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+
 my $duration = Time::Duration::Concise->new(
     interval => '1d1.5h'
 );

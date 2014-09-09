@@ -12,6 +12,10 @@ use Time::Duration::Concise::Localize;
 
 plan tests => 18;
 
+my $min_tpc = 1.27;
+eval "use Time::Seconds $min_tpc";
+plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+
 my $duration = Time::Duration::Concise::Localize->new(
     interval => '1d1.5h',
     'localize_class' => 'i18n',
