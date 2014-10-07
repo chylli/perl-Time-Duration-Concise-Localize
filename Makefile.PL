@@ -20,14 +20,14 @@ WriteMakefile(
         'Test::FailWarnings' => 0,
         'Test::Exception'    => 0,
         'Time::Seconds'      => 1.27,
-        'Module::Runtime'    => 0,
+        'Module::Pluggable'  => 0,
     },
     PREREQ_PM => {
         'Tie::Hash::LRU'     => 0,
         'Carp'               => 0,
-        'Module::Runtime'    => 0,
-        'POSIX' 	         => 0,
+        'POSIX' 	     => 0,
         'Time::Seconds'      => 1.27,
+        'Module::Pluggable'  => 0
     },
     (! eval { ExtUtils::MakeMaker->VERSION(6.46) } ? () :
         (META_ADD => {

@@ -22,11 +22,11 @@ Time::Duration::Concise is an improved approach to convert concise time duration
 
 =head1 VERSION
 
-Version 1.1
+Version 1.2
 
 =cut
 
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 
 our %LENGTH_TO_PERIOD = (
     86400 => 'day',
@@ -304,6 +304,18 @@ sub _duration_array {
     return \@time_frame;
 }
 
+=head2 multiple_units_of
+
+Shorthand to call time methods
+
+=cut
+
+sub multiple_units_of {
+    my ( $self, $unit ) = @_;
+    # two is multiple!
+    return ($self->_minimum_number_of($unit) >= 2) ? 1 : 0;
+}
+
 =head2 minimum_number_of
 
 Returns the minimum number of the given period.
@@ -311,6 +323,11 @@ Returns the minimum number of the given period.
 =cut
 
 sub minimum_number_of {
+    my ( $self, $unit ) = @_;
+    return ceil( $self->_minimum_number_of($unit) );
+}
+
+sub _minimum_number_of {
     my ( $self, $unit ) = @_;
     my $orig_unit = $unit;
     $unit =~ s/s$// if ( length($unit) > 1 ); # Chop plurals, but not 's' itself
@@ -328,7 +345,7 @@ sub minimum_number_of {
     my $method = $unit_maps{$unit};
     confess "Cannot determine period for $orig_unit" unless ($method);
 
-    return ceil( $self->$method );
+    return $self->$method;
 }
 
 =head2 duration
@@ -362,6 +379,24 @@ sub duration {
     };
     $self->{'_duration'} = $duration;
     return $duration;
+}
+
+=head2 get_time_layout
+
+Return the duration hash with regards to precision
+
+=cut
+
+sub get_time_layout {
+    my ($self, $precision) = @_;
+    my $duration    = $self->duration;
+    my $time_layout = {
+        duration       => $self->seconds,
+        day            => $duration->{'day'},
+        hour           => $duration->{'hour'},
+        second         => $duration->{'seconds'},
+        display_string => $self->as_string($precision)};
+    return $time_layout;
 }
 
 =head2 new
