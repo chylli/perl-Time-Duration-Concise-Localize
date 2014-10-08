@@ -27,19 +27,19 @@ Localized translation hash
 =cut
 
 sub translation {
-    my ( $self ) = @_;
+    my ($self) = @_;
     return {
-	'second'  => '秒钟', 
-	'seconds' => '秒钟',
-	'minute'  => '分钟',
-	'minutes' => '分钟',
-	'hour'    => '小时',
-	'hours'   => '小时',
-    'day'     => '天',
-	'days'    => '天',
-	'month'   => '月份',
-	'months'  => '月份',
-	'year'    => '年',
+        'second'  => '秒钟',
+        'seconds' => '秒钟',
+        'minute'  => '分钟',
+        'minutes' => '分钟',
+        'hour'    => '小时',
+        'hours'   => '小时',
+        'day'     => '天',
+        'days'    => '天',
+        'month'   => '月份',
+        'months'  => '月份',
+        'year'    => '年',
     };
 }
 
