@@ -2,7 +2,7 @@
 
 Time::Duration::Concise::Localize is an another time utility, which converts your concise time string to time duration and it also localize it in your language.
 
-This module uses Time::Duration::Concise as base modlue to convert concise string to duration
+This module uses Time::Duration::Concise as base module to convert concise string to duration
 
 
 [![Build Status](https://travis-ci.org/binary-com/perl-Time-Duration-Concise-Localize.svg?branch=master)](https://travis-ci.org/binary-com/perl-Time-Duration-Concise-Localize)
@@ -28,25 +28,23 @@ SYNOPSIS
         # concise time interval
         'interval' => '1.5h',
 
-        # Localize class will be imported during runtime
-        'localize_class' => 'My::i18n',
+        # Local in which string will be translated
+        'locale' => 'hi',
 
-        # Your anonymous method, :) your logic for translation
-        'localize_method' => sub {
-
-            # This is an anonymous function, it would be called
-            # when as_strig function generate duration as string
-            # Your translation logic applies here
-
-            My::i18n->new( 'language' => 'ms-my' )->translate_time_duration(@_);
-            # Method translate_time_duration will recieve two parameters
-            # value and unit
-        }
     );
 
     # gets you localized time duration string
     $duration->as_string;
 
+    # In Arabic
+    $duration->locale('ar');
+    $duration->as_string();
+
+    # In Chinese - China
+    $duration->locale('zh_cn');
+    $duration->as_string();
+
+    ...
 
 CONCISE FORMAT
 
