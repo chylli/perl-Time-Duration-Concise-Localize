@@ -6,21 +6,24 @@ use warnings FATAL => 'all';
 
 use Carp;
 use base qw(Time::Duration::Concise);
-use Module::Runtime qw(require_module);
+use Module::Pluggable
+  search_path => 'Time::Duration::Concise::Locale',
+  sub_name    => 'translation_classes',
+  require     => 1;
 
-our $VERSION = '1.8';
+our $VERSION = '1.9';
 
 =head1 NAME
 
-Time::Duration::Concise::Localize - An interesting approach to localize concise time duration string representation.
+Time::Duration::Concise::Localize - localize concise time duration string representation.
 
 =head1 DESCRIPTION
 
-Time::Duration::Concise is an approach to localize concise time duration string representation.
+Time::Duration::Concise provides localize concise time duration string representation.
 
 =head1 VERSION
 
-Version 1.8
+Version 1.9
 
 =head1 SYNOPSIS
 
@@ -31,20 +34,8 @@ Version 1.8
         # concise time interval
         'interval' => '1.5h',
 
-        # Localize class will be imported during runtime
-        'localize_class' => 'My::i18n',
-
-        # Your anonymous method, :) your logic for translation
-        'localize_method' => sub {
-
-            # This is an anonymous function, it would be called
-            # when as_strig function generate duration as string
-            # Your translation logic applies here
-
-            My::i18n->new( 'language' => 'ms-my' )->translate_time_duration(@_);
-            # Method translate_time_duration will recieve two parameters
-            # value and unit
-        }
+        # Locale for translation
+        'locale' => 'en'
     );
 
     $duration->as_string;
@@ -55,28 +46,16 @@ Version 1.8
 
 concise interval string
 
-=head2 localize_class (REQUIRED)
+=head2 locale (REQUIRED)
 
-your custom localization class name
-
-=cut
-
-sub localize_class {
-    my $self = shift;
-    return $self->{'_localize_class'};
-}
-
-=head2 localize_method (REQUIRED)
-
-your custom localization anonymous method call
-
-default paramenters to your class methods would be $val, $unit
+Get and set the locale for translation
 
 =cut
 
-sub localize_method {
-    my $self = shift;
-    return $self->{'_localize_method'};
+sub locale {
+    my ( $self, $locale ) = @_;
+    $self->{'locale'} = lc $locale if $locale;
+    return $self->{'locale'};
 }
 
 =head1 METHODS
@@ -87,23 +66,41 @@ Localized duration string
 
 =cut
 
+sub _load_translation {
+    my ( $self, $locale ) = @_;
+
+    # IF locale already cached do not load
+    return if exists $self->{'_cached_locale'}{$locale};
+
+    foreach my $locale_module ( $self->translation_classes ) {
+        my @md = split( '::', $locale_module );
+        if ( $locale_module->can('translation') ) {
+            $self->{'_cached_locale'}{ $md[-1] } =
+              $locale_module->translation();
+        }
+    }
+}
+
 sub as_string {
     my ( $self, $precision ) = @_;
 
-    my $localize_class  = $self->localize_class;
-    my $localize_method = $self->localize_method;
+    my $locale = $self->locale;
+    $self->_load_translation($locale);
 
-    eval { require_module($localize_class); };
-    die 'Failed to import localize class: ' if $@;
+    my $translation = {};
+    if ( exists $self->{'_cached_locale'}{$locale} ) {
+        $translation = $self->{'_cached_locale'}{$locale};
+    }
 
     my @duration_translated;
     foreach my $duration ( @{ $self->duration_array($precision) } ) {
-        my $translated_interval = '';
-        eval {
-            $translated_interval =
-              &$localize_method( $duration->{'value'}, $duration->{'unit'} );
-        };
-        confess 'Failed to call localize method: ' if $@;
+        my $value = $duration->{'value'};
+        my $unit  = $duration->{'unit'};
+
+        my $translated_interval = "$value $unit";
+        if ( exists $translation->{$unit} ) {
+            $translated_interval = "$value " . $translation->{$unit};
+        }
         push( @duration_translated, $translated_interval );
     }
     return join( ' ', @duration_translated );
@@ -121,12 +118,12 @@ sub new {
 
     my $interval = $params_ref{'interval'};
 
-    confess "Missing required arguments"
-      unless $params_ref{'localize_class'} and $params_ref{'localize_method'};
+    confess "Missing locale for translation"
+      unless $params_ref{'locale'};
 
     my $self = $class->SUPER::new( interval => $interval );
-    $self->{'_localize_class'}  = $params_ref{'localize_class'};
-    $self->{'_localize_method'} = $params_ref{'localize_method'};
+    $self->{'locale'}         = lc $params_ref{'locale'};
+    $self->{'_cached_locale'} = {};
 
     my $obj = bless $self, $class;
     return $obj;

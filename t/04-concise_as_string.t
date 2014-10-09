@@ -44,14 +44,14 @@ foreach my $code (sort keys %display_tests) {
     my %elements = %{$display_tests{$code}};
     my $ti       = Time::Duration::Concise::Localize->new(
         interval => $code,
-        'localize_class' => 'i18n',
-        'localize_method' => sub {
-             i18n->new( 'language' => 'en_us' )->translate_time_duration(@_);
-         }
+        locale   => 'en',
     );
     foreach my $length (sort keys %elements) {
-        is($ti->as_string($length), $elements{$length}, 'Display ' . $code . ' of length ' . $length . ' is ' . $elements{$length});
+        is(
+            $ti->as_string($length),
+            $elements{$length},
+            'Display ' . $code . ' of length ' . $length . ' is ' . $elements{$length}
+        );
     }
-
 }
 

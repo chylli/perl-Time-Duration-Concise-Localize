@@ -10,7 +10,7 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
 
-plan tests => 18;
+plan tests => 17;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
@@ -18,13 +18,10 @@ plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
 
 my $duration = Time::Duration::Concise::Localize->new(
     interval => '1d1.5h',
-    'localize_class' => 'i18n',
-    'localize_method' => sub {
-         i18n->new( 'language' => 'ms-my' )->translate_time_duration(@_);
-     }
+    'locale' => 'ms'
 );
 
-is ( ref $duration->localize_method, 'CODE', 'Localize anonymous method');
+is ( $duration->locale, 'ms', 'Locale return correct');
 is ( sprintf("%.3f",$duration->days), 1.062, 'Days');
 is ( sprintf("%.1f",$duration->hours), 25.5, 'Hours');
 is ( $duration->minutes, 1530, 'Minutes');
@@ -42,50 +39,21 @@ is ( $duration->duration->{'time'}->pretty, '1 days, 1 hours, 30 minutes, 0 seco
 is ( $duration->normalized_code, '1530m', 'normalized code is good');
 
 subtest "concise format input require" => sub {
-    plan tests => 3;
+    plan tests => 2;
     my $duration;
-    throws_ok { $duration = Time::Duration::Concise::Localize->new() } qr/Missing required arguments/, "missing required argument test";
+    throws_ok { $duration = Time::Duration::Concise::Localize->new() } qr/Missing locale for translation/, "missing required argument test";
     throws_ok {
         $duration = Time::Duration::Concise::Localize->new( interval => '1d1.5h' )
-    } qr/Missing required arguments/, "missing required localize class";
-    throws_ok {
-        $duration = Time::Duration::Concise::Localize->new( interval => '1d1.5h', 'localize_class' => 'i18n' )
-    } qr/Missing required arguments/, "missing required localize method";
-
+    } qr/Missing locale for translation/, "missing required localize class";
 };
 
 subtest "statement test" => sub {
-    plan tests => 2;
+    plan tests => 1;
 
     my $duration = Time::Duration::Concise::Localize->new(
         interval => '1d1.5h',
-        'localize_class' => 'i18nn',
-        'localize_method' => sub {
-            i18n->new( 'language' => 'ms-my' )->translate_time_duration(@_);
-        }
+        'locale' => 'en'
     );
-    throws_ok { $duration->as_string() } qr/Failed to import localize class/, "Failed to import localize class";
-
-    $duration = Time::Duration::Concise::Localize->new(
-        interval => '1d1.5h',
-        'localize_class' => 'i18n',
-        'localize_method' => sub {
-            i18n->new( 'language' => 'ms-my' )->translate_time_duration_(@_);
-        }
-    );
-    throws_ok { $duration->as_string() } qr/Failed to call localize method/, "Failed to call localize method";
-};
-
-subtest "constructor test" => sub {
-    plan tests => 1;
-
-    my $duration = Time::Duration::Concise::Localize->new({
-        interval => '1d1.5h',
-        'localize_class' => 'i18n',
-        'localize_method' => sub {
-            i18n->new( 'language' => 'ms-my' )->translate_time_duration(@_);
-        }
-    });
     lives_ok { $duration->as_string() }, "Failed to import localize class";
 
 };
