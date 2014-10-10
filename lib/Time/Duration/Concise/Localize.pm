@@ -11,7 +11,7 @@ use Module::Pluggable
   sub_name    => 'translation_classes',
   require     => 1;
 
-our $VERSION = '1.9';
+our $VERSION = '2.0';
 
 =head1 NAME
 
@@ -46,7 +46,7 @@ Version 1.9
 
 concise interval string
 
-=head2 locale (REQUIRED)
+=head2 locale
 
 Get and set the locale for translation
 
@@ -118,11 +118,13 @@ sub new {
 
     my $interval = $params_ref{'interval'};
 
-    confess "Missing locale for translation"
-      unless $params_ref{'locale'};
-
     my $self = $class->SUPER::new( interval => $interval );
-    $self->{'locale'}         = lc $params_ref{'locale'};
+
+    # Set default locale as english
+    $self->{'locale'} = 'en';
+    if ( exists $params_ref{'locale'} ) {
+        $self->{'locale'} = lc $params_ref{'locale'};
+    }
     $self->{'_cached_locale'} = {};
 
     my $obj = bless $self, $class;

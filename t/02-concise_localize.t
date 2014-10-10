@@ -10,7 +10,7 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
 
-plan tests => 17;
+plan tests => 16;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
@@ -39,22 +39,8 @@ is ( $duration->duration->{'time'}->pretty, '1 days, 1 hours, 30 minutes, 0 seco
 is ( $duration->normalized_code, '1530m', 'normalized code is good');
 
 subtest "concise format input require" => sub {
-    plan tests => 2;
-    my $duration;
-    throws_ok { $duration = Time::Duration::Concise::Localize->new() } qr/Missing locale for translation/, "missing required argument test";
-    throws_ok {
-        $duration = Time::Duration::Concise::Localize->new( interval => '1d1.5h' )
-    } qr/Missing locale for translation/, "missing required localize class";
-};
-
-subtest "statement test" => sub {
     plan tests => 1;
-
-    my $duration = Time::Duration::Concise::Localize->new(
-        interval => '1d1.5h',
-        'locale' => 'en'
-    );
-    lives_ok { $duration->as_string() }, "Failed to import localize class";
-
+    my $duration;
+    throws_ok { $duration = Time::Duration::Concise::Localize->new() } qr/Missing required arguments/, "missing required argument test";
 };
 
