@@ -11,7 +11,7 @@ use Module::Pluggable
   sub_name    => 'translation_classes',
   require     => 1;
 
-our $VERSION = '2.0';
+our $VERSION = '2.1';
 
 =head1 NAME
 
@@ -23,7 +23,7 @@ Time::Duration::Concise provides localize concise time duration string represent
 
 =head1 VERSION
 
-Version 1.9
+Version 2.1
 
 =head1 SYNOPSIS
 
@@ -117,6 +117,16 @@ sub new {
     my %params_ref = ref( $_[0] ) ? %{ $_[0] } : @_;
 
     my $interval = $params_ref{'interval'};
+
+    my $whatsit = ref($interval);
+
+    if ($whatsit eq __PACKAGE__) {
+        $interval = $interval->seconds;
+    }
+
+    if (not defined $interval) {
+        confess "Missing required arguments";
+    }
 
     my $self = $class->SUPER::new( interval => $interval );
 
