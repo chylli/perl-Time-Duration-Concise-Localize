@@ -8,6 +8,7 @@ perl:
     - "5.08"
 before_install:
   - cpanm -n Devel::Cover::Report::Coveralls
+  - cpanm -n Tie::Hash::LRU
   - perl Makefile.PL
   - make
 script:
