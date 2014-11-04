@@ -8,11 +8,11 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise;
 
-plan tests => 27;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
 plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+plan tests => 27;
 
 my $duration = Time::Duration::Concise->new(
     interval => '1d1.5h'

@@ -10,11 +10,11 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
 
-plan tests => 16;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
 plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+plan tests => 16;
 
 my $duration = Time::Duration::Concise::Localize->new(
     interval => '1d1.5h',
