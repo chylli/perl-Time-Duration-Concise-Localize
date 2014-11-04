@@ -8,11 +8,11 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise;
 
-plan tests => 27;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
 plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+plan tests => 27;
 
 my $duration = Time::Duration::Concise->new(
     interval => '1d1.5h'
@@ -20,7 +20,7 @@ my $duration = Time::Duration::Concise->new(
 
 is ( $duration->interval, '1d1.5h', 'Interval');
 is ( $duration->seconds, 91800, 'Seconds');
-is ( sprintf("%.3f",$duration->days), 1.062, 'Days');
+is ( sprintf("%.2f",$duration->days), 1.06, 'Days'); # .3f fails on win32
 is ( sprintf("%.1f",$duration->hours), 25.5, 'Hours');
 is ( $duration->minutes, 1530, 'Minutes');
 is ( sprintf("%.2f",$duration->weeks), 0.15, 'Week');
