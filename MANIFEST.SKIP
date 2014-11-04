@@ -1,0 +1,5 @@
+\B.hg\b
+.travis.yml
+.gitignore
+MANIFEST.SKIP
+Makefile.old
