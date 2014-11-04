@@ -5,7 +5,7 @@ perl:
     - "5.14"
     - "5.12"
     - "5.10"
-    - "5.08"
+    # - "5.08" for some reason is incompatible our tests on travis-ci only
 before_install:
   - "cpanm Devel::Cover::Report::Coveralls"
   - "cpanm Tie::Hash::LRU"
