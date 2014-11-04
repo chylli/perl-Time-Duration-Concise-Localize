@@ -7,9 +7,9 @@ perl:
     - "5.10"
     - "5.08"
 before_install:
-  - sudo cpanm -n Devel::Cover::Report::Coveralls
-  - sudo cpanm -n Tie::Hash::LRU
-  - perl Makefile.PL
-  - make
+  - "sudo cpanm -n Devel::Cover::Report::Coveralls"
+  - "sudo cpanm -n Tie::Hash::LRU"
+  - "perl Makefile.PL"
+  - "make"
 script:
   make test && cover -test -report coveralls
