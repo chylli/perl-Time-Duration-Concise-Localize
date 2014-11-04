@@ -20,7 +20,7 @@ my $duration = Time::Duration::Concise->new(
 
 is ( $duration->interval, '1d1.5h', 'Interval');
 is ( $duration->seconds, 91800, 'Seconds');
-is ( sprintf("%.3f",$duration->days), 1.062, 'Days');
+is ( sprintf("%.2f",$duration->days), 1.06, 'Days'); # .3f fails on win32
 is ( sprintf("%.1f",$duration->hours), 25.5, 'Hours');
 is ( $duration->minutes, 1530, 'Minutes');
 is ( sprintf("%.2f",$duration->weeks), 0.15, 'Week');
