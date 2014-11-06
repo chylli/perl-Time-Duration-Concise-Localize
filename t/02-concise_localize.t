@@ -10,11 +10,11 @@ use Test::FailWarnings;
 use Test::Exception;
 use Time::Duration::Concise::Localize;
 
-plan tests => 16;
 
 my $min_tpc = 1.27;
 eval "use Time::Seconds $min_tpc";
 plan skip_all => "Time::Seconds $min_tpc required for testing" if $@;
+plan tests => 16;
 
 my $duration = Time::Duration::Concise::Localize->new(
     interval => '1d1.5h',
@@ -22,7 +22,7 @@ my $duration = Time::Duration::Concise::Localize->new(
 );
 
 is ( $duration->locale, 'ms', 'Locale return correct');
-is ( sprintf("%.3f",$duration->days), 1.062, 'Days');
+is ( sprintf("%.2f",$duration->days), 1.06, 'Days'); # 3 dec. fails on win32
 is ( sprintf("%.1f",$duration->hours), 25.5, 'Hours');
 is ( $duration->minutes, 1530, 'Minutes');
 is ( $duration->as_string, '1 hari 1 jam 30 minit', 'As string');

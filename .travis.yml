@@ -4,7 +4,12 @@ perl:
     - "5.16"
     - "5.14"
     - "5.12"
+    - "5.10"
+    # - "5.08" for some reason is incompatible our tests on travis-ci only
 before_install:
-  cpanm -n Devel::Cover::Report::Coveralls
+  - "cpanm Devel::Cover::Report::Coveralls"
+  - "cpanm Tie::Hash::LRU"
+  - "perl Makefile.PL"
+  - "make"
 script:
-  perl Makefile.PL && make test && cover -test -report coveralls
+  make test && cover -test -report coveralls
