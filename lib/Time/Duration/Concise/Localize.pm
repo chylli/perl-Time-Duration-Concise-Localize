@@ -3,6 +3,7 @@ package Time::Duration::Concise::Localize;
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
+use utf8;
 
 use Carp;
 use base qw(Time::Duration::Concise);
@@ -11,7 +12,7 @@ use Module::Pluggable
   sub_name    => 'translation_classes',
   require     => 1;
 
-our $VERSION = '2.1';
+our $VERSION = '2.4';
 
 =head1 NAME
 
@@ -23,7 +24,7 @@ Time::Duration::Concise provides localize concise time duration string represent
 
 =head1 VERSION
 
-Version 2.1
+Version 2.4
 
 =head1 SYNOPSIS
 

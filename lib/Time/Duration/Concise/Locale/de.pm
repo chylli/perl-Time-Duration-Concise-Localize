@@ -3,6 +3,7 @@ package Time::Duration::Concise::Locale::de;
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
+use utf8;
 
 our $VERSION = '0.1';
 
