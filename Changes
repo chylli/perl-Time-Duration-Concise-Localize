@@ -50,8 +50,11 @@ Revision history for Time-Duration-Concise-Localize
 2.0     10/10/2014
         bug fixes
 
-2.2	    04/11/2014
-	    Fixed test failures
+2.2     04/11/2014
+        test failures
 
 2.4     06/11/2014
         utf8 encoding issues fixes
+
+2.5     03/02/2015
+        improve localization caching and lookup performance

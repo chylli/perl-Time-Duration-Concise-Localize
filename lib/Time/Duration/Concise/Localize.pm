@@ -12,7 +12,7 @@ use Module::Pluggable
   sub_name    => 'translation_classes',
   require     => 1;
 
-our $VERSION = '2.4';
+our $VERSION = '2.5';
 
 =head1 NAME
 
@@ -67,44 +67,34 @@ Localized duration string
 
 =cut
 
+# Map self and plurals for English default. Should use KNOWN_UNITS...
+my %locale_cache = (en => +{map { $_ => $_ } map { ($_, $_ . 's') } qw(second minute hour day)});
+
 sub _load_translation {
-    my ( $self, $locale ) = @_;
+    my ($self, $req_locale) = @_;
 
-    # IF locale already cached do not load
-    return if exists $self->{'_cached_locale'}{$locale};
+    # If locale already cached do not load
+    my $cached = exists $locale_cache{$req_locale};
 
-    foreach my $locale_module ( $self->translation_classes ) {
-        my @md = split( '::', $locale_module );
-        if ( $locale_module->can('translation') ) {
-            $self->{'_cached_locale'}{ $md[-1] } =
-              $locale_module->translation();
+    if (!$cached) {
+        foreach my $locale_module ($self->translation_classes) {
+            my $load_locale = (split('::', $locale_module))[-1];
+            next if (exists $locale_cache{$load_locale});    # Got this one already.
+            next unless ($locale_module->can('translation'));    # Chocolate in our peanut butter.
+            $locale_cache{$load_locale} = $locale_module->translation();
+            $cached = 1 if ($load_locale eq $req_locale);        # Good news, everyone!
         }
     }
+
+    return ($cached) ? $locale_cache{$req_locale} : $locale_cache{en};    # English default.
 }
 
 sub as_string {
-    my ( $self, $precision ) = @_;
+    my ($self, $precision) = @_;
 
-    my $locale = $self->locale;
-    $self->_load_translation($locale);
+    my $translation = $self->_load_translation($self->locale);
 
-    my $translation = {};
-    if ( exists $self->{'_cached_locale'}{$locale} ) {
-        $translation = $self->{'_cached_locale'}{$locale};
-    }
-
-    my @duration_translated;
-    foreach my $duration ( @{ $self->duration_array($precision) } ) {
-        my $value = $duration->{'value'};
-        my $unit  = $duration->{'unit'};
-
-        my $translated_interval = "$value $unit";
-        if ( exists $translation->{$unit} ) {
-            $translated_interval = "$value " . $translation->{$unit};
-        }
-        push( @duration_translated, $translated_interval );
-    }
-    return join( ' ', @duration_translated );
+    return join(' ', map { join ' ', ($_->{'value'}, $translation->{$_->{'unit'}}) } @{$self->duration_array($precision)});
 }
 
 =head2 new
@@ -136,7 +126,6 @@ sub new {
     if ( exists $params_ref{'locale'} ) {
         $self->{'locale'} = lc $params_ref{'locale'};
     }
-    $self->{'_cached_locale'} = {};
 
     my $obj = bless $self, $class;
     return $obj;
@@ -180,9 +169,6 @@ L<http://cpanratings.perl.org/d/Time-Duration-Concise-Localize>
 L<http://search.cpan.org/dist/Time-Duration-Concise-Localize/>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
 
 
 =head1 LICENSE AND COPYRIGHT

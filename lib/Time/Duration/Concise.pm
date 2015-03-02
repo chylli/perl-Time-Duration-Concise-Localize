@@ -65,7 +65,7 @@ our $KNOWN_UNITS_ = 'dhms';
 
 =head2 interval (REQUIRED)
 
-=head2 Concise Format
+Concise Format
 
 The format is an integer followed immediatley by its duration
 identifier.  White-space will be ignored.
@@ -477,10 +477,6 @@ L<http://cpanratings.perl.org/d/Time-Duration-Concise-Localize>
 L<http://search.cpan.org/dist/Time-Duration-Concise-Localize/>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 LICENSE AND COPYRIGHT
 
