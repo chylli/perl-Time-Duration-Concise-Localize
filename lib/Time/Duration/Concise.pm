@@ -353,13 +353,13 @@ sub _minimum_number_of {
 Returns HASH of duration with the following keys
 
 	    'time'    # Time::Seconds object
-	    'years'   
-	    'months'  
-	    'weeks'   
-	    'days'    
-	    'hours'   
-	    'minutes' 
-	    'seconds' 
+	    'years'
+	    'months'
+	    'weeks'
+	    'days'
+	    'hours'
+	    'minutes'
+	    'seconds'
 
 =cut
 

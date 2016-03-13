@@ -58,3 +58,6 @@ Revision history for Time-Duration-Concise-Localize
 
 2.5     03/02/2015
         improve localization caching and lookup performance
+
+2.6     13/03/2016
+        add zh_tw, it and vi locale

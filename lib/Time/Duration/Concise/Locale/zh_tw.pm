@@ -1,4 +1,4 @@
-package Time::Duration::Concise::Locale::zh_cn;
+package Time::Duration::Concise::Locale::zh_tw;
 
 use 5.006;
 use strict;
@@ -9,11 +9,11 @@ our $VERSION = '0.1';
 
 =head1 NAME
 
-Time::Duration::Concise::Locale::zh_cn - Chinese - China locale translation.
+Time::Duration::Concise::Locale::zh_tw - Traditional Chinese locale translation.
 
 =head1 DESCRIPTION
 
-Time::Duration::Concise uses Time::Duration::Concise::Locale::zh_cn to localize concise time duration string representation.
+Time::Duration::Concise uses Time::Duration::Concise::Locale::zh_tw to localize concise time duration string representation.
 
 =head1 VERSION
 
@@ -30,12 +30,12 @@ Localized translation hash
 sub translation {
     my ($self) = @_;
     return {
-        'second'  => '秒钟',
-        'seconds' => '秒钟',
-        'minute'  => '分钟',
-        'minutes' => '分钟',
-        'hour'    => '小时',
-        'hours'   => '小时',
+        'second'  => '秒',
+        'seconds' => '秒',
+        'minute'  => '分鐘',
+        'minutes' => '分鐘',
+        'hour'    => '小時',
+        'hours'   => '小時',
         'day'     => '天',
         'days'    => '天',
         'month'   => '月份',
@@ -51,4 +51,4 @@ Binary.com, C<< <perl at binary.com> >>
 
 =cut
 
-1;    # End of Time::Duration::Concise::Locale::zh_cn
+1;    # End of Time::Duration::Concise::Locale::zh_tw

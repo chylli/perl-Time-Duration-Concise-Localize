@@ -1,4 +1,4 @@
-package Time::Duration::Concise::Locale::zh_cn;
+package Time::Duration::Concise::Locale::vi;
 
 use 5.006;
 use strict;
@@ -9,7 +9,7 @@ our $VERSION = '0.1';
 
 =head1 NAME
 
-Time::Duration::Concise::Locale::zh_cn - Chinese - China locale translation.
+Time::Duration::Concise::Locale::zh_cn - Vietnamese - Vietnam locale translation.
 
 =head1 DESCRIPTION
 
@@ -30,18 +30,18 @@ Localized translation hash
 sub translation {
     my ($self) = @_;
     return {
-        'second'  => '秒钟',
-        'seconds' => '秒钟',
-        'minute'  => '分钟',
-        'minutes' => '分钟',
-        'hour'    => '小时',
-        'hours'   => '小时',
-        'day'     => '天',
-        'days'    => '天',
-        'month'   => '月份',
-        'months'  => '月份',
-        'year'    => '年',
-        'years'   => '年',
+        'second'  => 'giây',
+        'seconds' => 'giây',
+        'minute'  => 'phút',
+        'minutes' => 'phút',
+        'hour'    => 'giờ',
+        'hours'   => 'giờ',
+        'day'     => 'ngày',
+        'days'    => 'ngày',
+        'month'   => 'tháng',
+        'months'  => 'tháng',
+        'year'    => 'năm',
+        'years'   => 'năm',
     };
 }
 
