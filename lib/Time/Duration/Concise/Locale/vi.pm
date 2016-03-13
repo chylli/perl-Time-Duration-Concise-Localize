@@ -9,11 +9,11 @@ our $VERSION = '0.1';
 
 =head1 NAME
 
-Time::Duration::Concise::Locale::zh_cn - Vietnamese - Vietnam locale translation.
+Time::Duration::Concise::Locale::vi - Vietnamese - Vietnam locale translation.
 
 =head1 DESCRIPTION
 
-Time::Duration::Concise uses Time::Duration::Concise::Locale::zh_cn to localize concise time duration string representation.
+Time::Duration::Concise uses Time::Duration::Concise::Locale::vi to localize concise time duration string representation.
 
 =head1 VERSION
 
@@ -51,4 +51,4 @@ Binary.com, C<< <perl at binary.com> >>
 
 =cut
 
-1;    # End of Time::Duration::Concise::Locale::zh_cn
+1;    # End of Time::Duration::Concise::Locale::vi
