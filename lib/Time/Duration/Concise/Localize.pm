@@ -12,7 +12,7 @@ use Module::Pluggable
   sub_name    => 'translation_classes',
   require     => 1;
 
-our $VERSION = '2.5';
+our $VERSION = '2.6';
 
 =head1 NAME
 
@@ -24,7 +24,7 @@ Time::Duration::Concise provides localize concise time duration string represent
 
 =head1 VERSION
 
-Version 2.4
+Version 2.6
 
 =head1 SYNOPSIS
 

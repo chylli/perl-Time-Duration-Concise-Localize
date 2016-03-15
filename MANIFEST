@@ -1,3 +1,4 @@
+.travis.yml
 Changes
 example/demo.pl
 lib/Time/Duration/Concise.pm
@@ -7,19 +8,18 @@ lib/Time/Duration/Concise/Locale/es.pm
 lib/Time/Duration/Concise/Locale/fr.pm
 lib/Time/Duration/Concise/Locale/hi.pm
 lib/Time/Duration/Concise/Locale/id.pm
+lib/Time/Duration/Concise/Locale/it.pm
 lib/Time/Duration/Concise/Locale/ja.pm
 lib/Time/Duration/Concise/Locale/ms.pm
 lib/Time/Duration/Concise/Locale/pl.pm
 lib/Time/Duration/Concise/Locale/pt.pm
 lib/Time/Duration/Concise/Locale/ru.pm
+lib/Time/Duration/Concise/Locale/vi.pm
 lib/Time/Duration/Concise/Locale/zh_cn.pm
+lib/Time/Duration/Concise/Locale/zh_tw.pm
 lib/Time/Duration/Concise/Localize.pm
-Makefile
 Makefile.PL
 MANIFEST			This list of files
-MANIFEST.bak
-MYMETA.json
-MYMETA.yml
 README
 README.md
 t/00-load.t
@@ -29,6 +29,7 @@ t/03-concise_more.t
 t/04-concise_as_string.t
 t/04-concise_more.t
 t/05-concise_as_concise.t
+t/06-localize.t
 t/boilerplate.t
 t/manifest.t
 t/pod-coverage.t
