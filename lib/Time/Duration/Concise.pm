@@ -402,8 +402,8 @@ Object constructor
 
 =cut
 
-sub new {
-    my $class = shift; ## no critic RequiredArgUnpacking
+sub new { ## no critic (RequiredArgUnpacking)
+    my $class = shift;
     my %params_ref = ref( $_[0] ) ? %{ $_[0] } : @_;
 
     my $interval = $params_ref{'interval'};

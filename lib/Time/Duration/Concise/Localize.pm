@@ -99,7 +99,7 @@ Object constructor
 
 =cut
 
-sub new {
+sub new { ## no critic (RequiredArgUnpacking)
     my $class = shift;
     my %params_ref = ref( $_[0] ) ? %{ $_[0] } : @_;
 
