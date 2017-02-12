@@ -403,7 +403,7 @@ Object constructor
 =cut
 
 sub new {
-    my $class = shift;
+    my $class = shift; ## no critic RequiredArgUnpacking
     my %params_ref = ref( $_[0] ) ? %{ $_[0] } : @_;
 
     my $interval = $params_ref{'interval'};
