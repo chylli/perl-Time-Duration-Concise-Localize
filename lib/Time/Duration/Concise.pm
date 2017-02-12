@@ -51,9 +51,9 @@ our $KNOWN_UNITS_ = 'dhms';
     );
 
     # Intervals can have decimal values
-    1.5h etc
+    # 1.5h etc
 
-    my $duration = Time::Duration::Concise->new(
+    $duration = Time::Duration::Concise->new(
         interval => '1.5h'
     );
 
