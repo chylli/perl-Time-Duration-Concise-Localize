@@ -203,9 +203,7 @@ sub as_concise_string {
     $precision ||= 10;
     my $time_frames         = $self->_duration_array($precision);
     my @concise_time_frames = map {
-        my $t = $_;
-        $t =~ s/\s+//ig;
-        $t =~ /([-|\+]?\d+[A-Za-z]{1})/ig;
+        s/\s+//rg =~ /([-|\+]?\d+[A-Za-z]{1})/ig;
         $1;
     } @$time_frames;
     $self->{"_duration_array_$precision"} = undef;
@@ -419,7 +417,6 @@ sub new { ## no critic (RequireArgUnpacking)
     if ( defined $interval ) {
         Carp::croak("Invalid time interval") if $interval eq '';
     }
-    my $known_units = $KNOWN_UNITS_;
 
     # Try our best to make it parseable.
     $interval =~ s/\s//g;
