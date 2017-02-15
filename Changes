@@ -1,6 +1,8 @@
 Revision history for Time-Duration-Concise-Localize
 
 {{$NEXT}}
+
+2.61      2017-02-15 07:11:56+00:00 UTC
         Switch to dzil
 
 2.60    13/03/2016
