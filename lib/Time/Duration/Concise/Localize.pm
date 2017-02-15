@@ -8,11 +8,11 @@ use utf8;
 use Carp;
 use base qw(Time::Duration::Concise);
 use Module::Pluggable
-  search_path => 'Time::Duration::Concise::Locale',
-  sub_name    => 'translation_classes',
-  require     => 1;
+    search_path => 'Time::Duration::Concise::Locale',
+    sub_name    => 'translation_classes',
+    require     => 1;
 
-our $VERSION = '2.60';
+our $VERSION = '2.61';
 
 =head1 NAME
 
@@ -50,7 +50,7 @@ Get and set the locale for translation
 =cut
 
 sub locale {
-    my ( $self, $locale ) = @_;
+    my ($self, $locale) = @_;
     $self->{'locale'} = lc $locale if $locale;
     return $self->{'locale'};
 }
@@ -99,9 +99,9 @@ Object constructor
 
 =cut
 
-sub new { ## no critic (RequireArgUnpacking)
+sub new {    ## no critic (RequireArgUnpacking)
     my $class = shift;
-    my %params_ref = ref( $_[0] ) ? %{ $_[0] } : @_;
+    my %params_ref = ref($_[0]) ? %{$_[0]} : @_;
 
     my $interval = $params_ref{'interval'};
 
@@ -115,11 +115,11 @@ sub new { ## no critic (RequireArgUnpacking)
         confess "Missing required arguments";
     }
 
-    my $self = $class->SUPER::new( interval => $interval );
+    my $self = $class->SUPER::new(interval => $interval);
 
     # Set default locale as english
     $self->{'locale'} = 'en';
-    if ( exists $params_ref{'locale'} ) {
+    if (exists $params_ref{'locale'}) {
         $self->{'locale'} = lc $params_ref{'locale'};
     }
 
