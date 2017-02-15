@@ -5,7 +5,7 @@ use strict;
 use warnings FATAL => 'all';
 use utf8;
 
-our $VERSION = '0.1';
+## VERSION
 
 =head1 NAME
 
@@ -14,10 +14,6 @@ Time::Duration::Concise::Locale::fr - French locale translation.
 =head1 DESCRIPTION
 
 Time::Duration::Concise uses Time::Duration::Concise::Locale::fr to localize concise time duration string representation.
-
-=head1 VERSION
-
-Version 0.1
 
 =head1 METHODS
 
